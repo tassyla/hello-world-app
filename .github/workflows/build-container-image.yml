@@ -1,0 +1,19 @@
+name: Continuous Integration
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  build:
+    name: Build container image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Build and tag container image
+        run: |
+          cd backend
+          docker build -t hello-world-api .
