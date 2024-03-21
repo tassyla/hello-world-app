@@ -1,7 +1,12 @@
+import logging
 import os
+import random
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
+
+logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
@@ -19,5 +24,10 @@ app.add_middleware(
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
-
+    randnum = random.randrange(3)
+    msg = f"Hello World {randnum}"
+    if randnum:
+        logger.warn(f"Warn - randnum: {randnum}")
+    else:
+        logger.error(f"Error - randnum: {randnum}")
+    return {"message": msg}
